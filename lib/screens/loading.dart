@@ -1,61 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_application_1/screens/loading.dart';
+import 'package:flutter_application_1/screens/HomeScreen.dart';
 import 'package:flutter_application_1/screens/auth.dart';
 
 
-
-void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Home(),
-  ));
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
 }
 
+class _HomeState extends State<Home> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User _user;
+   @override
+  void initState() {
+    super.initState();
+    initializeUser();
+    navigateUser();
+  }
+  Future initializeUser() async{
+    await Firebase.initializeApp();
+    final User firebaseUser = await FirebaseAuth.instance.currentUser;
+    await firebaseUser.reload();
+    _user = await _auth.currentUser;
+  }
+  navigateUser() async {
+    // checking whether user already loggedIn or not
+    if (_auth.currentUser != null) {
+      // &&  FirebaseAuth.instance.currentUser.reload() != null
+      Timer(
+        Duration(seconds: 3),
+        () => Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) =>
+                    HomeScreen(username: _auth.currentUser.displayName)),
+            (Route<dynamic> route) => false),
+      );
+    } 
+  }
 
-
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: Home(),
-//     );
-//   }
-// }
-
-// class Home extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//      return Scaffold(
-//         backgroundColor: Color(0xff03203C),
-//         body:Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Center(
-//               child: CircleAvatar(
-//                 backgroundImage: NetworkImage('https://image.freepik.com/free-vector/woman-face-scan-process-gadget_24908-56374.jpg'),
-//                 radius: 70,
-//               ),
-//             ),
-//             SizedBox(height: 25),
-//             Text('Driver Assistant',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.amber[200]),textAlign: TextAlign.center),
-//             SizedBox(height: 25),
-//             ElevatedButton.icon(
-//               label: Text("Let's get started"),
-//               icon: Icon(Icons.arrow_forward_ios),
-//               onPressed: () {
-//                 Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-//               },
-//             ),
-//           ],
-//         ),
-//       );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+     return Scaffold(
+        backgroundColor: Color(0xff03203C),
+        body:Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: CircleAvatar(
+                backgroundImage: NetworkImage('https://image.freepik.com/free-vector/woman-face-scan-process-gadget_24908-56374.jpg'),
+                radius: 70,
+              ),
+            ),
+            SizedBox(height: 25),
+            Text('Driver Assistant',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.amber[200]),textAlign: TextAlign.center),
+            SizedBox(height: 25),
+            ElevatedButton.icon(
+              label: Text("Let's get started"),
+              icon: Icon(Icons.arrow_forward_ios),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AuthScreen()));
+              },
+            ),
+          ],
+        ),
+      );
+  }
+}
 
 // class LoginScreen extends StatelessWidget {
 //   final Color pColor = Color(0xff18203d);
@@ -140,4 +155,7 @@ void main() async{
 //   }
 // }
 
-    
+
+
+
+
