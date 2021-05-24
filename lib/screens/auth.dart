@@ -7,14 +7,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/sign-in.dart';
 
-
 String name;
 String email;
 String imageUrl;
 final FirebaseAuth auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 final AuthService authService = AuthService();
-
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -32,19 +30,17 @@ class _AuthScreenState extends State<AuthScreen> {
 
   bool _validate = false;
   bool visible = true;
-  String  email, password;
+  String email, password;
 
-   @override
+  @override
   void initState() {
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    
-
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0.0),
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0.0),
       backgroundColor: pColor,
       body: Container(
         alignment: Alignment.topCenter,
@@ -54,12 +50,19 @@ class _AuthScreenState extends State<AuthScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('Sign-in to experience magic',style:GoogleFonts.openSans(color: Colors.white, fontSize: 28),textAlign: TextAlign.center,),
+              Text(
+                'Sign-in to experience magic',
+                style: GoogleFonts.openSans(color: Colors.white, fontSize: 28),
+                textAlign: TextAlign.center,
+              ),
               SizedBox(height: 20),
-              Text("Enter your email and password",style:  GoogleFonts.openSans(color: Colors.white, fontSize: 14),textAlign: TextAlign.center),
+              Text("Enter your email and password",
+                  style:
+                      GoogleFonts.openSans(color: Colors.white, fontSize: 14),
+                  textAlign: TextAlign.center),
               SizedBox(height: 50),
               _buildTextField(nameController, Icons.account_circle, 'Email'),
-               SizedBox(height: 20),
+              SizedBox(height: 20),
               _buildTextField(psswdController, Icons.lock, 'Password'),
               SizedBox(height: 30),
               MaterialButton(
@@ -67,71 +70,48 @@ class _AuthScreenState extends State<AuthScreen> {
                 height: 50,
                 minWidth: double.maxFinite,
                 onPressed: () async {
-                 dynamic results = await auth.signInWithEmailAndPassword(email: nameController.text, password: psswdController.text);
-                 if (results != null){
-                  Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                  builder: (context) =>
-                        HomeScreen(username: auth.currentUser.displayName)),
-                (Route<dynamic> route) => false);
-                 }
-
+                  dynamic results = await auth.signInWithEmailAndPassword(
+                      email: nameController.text,
+                      password: psswdController.text);
+                  if (results != null) {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => HomeScreen(
+                                username: auth.currentUser.displayName)),
+                        (Route<dynamic> route) => false);
+                  }
                 },
-                child: Text("Login",style: TextStyle(fontSize: 16,color: Colors.white)),
+                child: Text("Login",
+                    style: TextStyle(fontSize: 16, color: Colors.white)),
                 color: Colors.blue,
               ),
-              SizedBox(height: 20),
-              MaterialButton(
-                elevation: 0.0,
-                height: 50,
-                minWidth: double.maxFinite,
-                onPressed: () async{
-                  User user = await authService.googleSignIn();
-                  if (user != null){
-                  Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                  builder: (context) =>
-                        HomeScreen(username: auth.currentUser.displayName)),
-                (Route<dynamic> route) => false);
-                 }
-                },
-                color: Colors.blue,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(FontAwesomeIcons.google),
-                    SizedBox(width: 10),
-                    Text('Sign-in with Google',style: TextStyle(fontSize: 16,color: Colors.white)),
-                  ],
-                ),
-                textColor: Colors.white,
-              ),
-              SizedBox(height: 100),
             ],
           ),
         ),
-      ), 
+      ),
     );
-  } 
+  }
 
-_buildTextField(TextEditingController controller,IconData icon,String labelText){
+  _buildTextField(
+      TextEditingController controller, IconData icon, String labelText) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-        color: sColor,border: Border.all(color: Colors.blue)),
-        child: TextFormField(
-          keyboardType: TextInputType.emailAddress,
-          controller: controller,
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 10),
-            labelText: labelText,
-            labelStyle: TextStyle(color: Colors.white),
-            icon: Icon(icon,color: Colors.white),
-            border: InputBorder.none,
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(18.0)),
+          color: sColor,
+          border: Border.all(color: Colors.blue)),
+      child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        controller: controller,
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          labelText: labelText,
+          labelStyle: TextStyle(color: Colors.white),
+          icon: Icon(icon, color: Colors.white),
+          border: InputBorder.none,
         ),
+      ),
     );
-    
   }
 }
