@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/screens/auth.dart';
-import 'package:flutter_application_1/screens/loading.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:lottie/lottie.dart';
 
@@ -85,9 +84,19 @@ class MyApp extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(
-                          "Driver Assistant",
-                          style: goldCoinBlackStyle,
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: AssetImage("assets/logo.png"),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                "Driver Assistant",
+                                style: goldCoinBlackStyle,
+                              ),
+                            ),
+                          ],
                         ),
                         InkWell(
                           onTap: () {
@@ -148,9 +157,19 @@ class MyApp extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(
-                          "Driver Assistant",
-                          style: goldcoinGreyStyle,
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: AssetImage("assets/logo.png"),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                "Driver Assistant",
+                                style: goldcoinGreyStyle,
+                              ),
+                            ),
+                          ],
                         ),
                         InkWell(
                           onTap: () {
@@ -207,9 +226,19 @@ class MyApp extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(
-                          "Driver Assistant",
-                          style: goldCoinWhiteStyle,
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: AssetImage("assets/logo.png"),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                "Driver Assistant",
+                                style: goldCoinWhiteStyle,
+                              ),
+                            ),
+                          ],
                         ),
                         InkWell(
                           onTap: () {

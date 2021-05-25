@@ -36,6 +36,10 @@ dependencies:
   auth_buttons: ^1.0.1+3
   liquid_swipe: ^1.4.3
   lottie: ^1.0.1
+  tflite: any
+  url_launcher: any
+  camera: any
+  flutter_ringtone_player: ^3.0.0
 
 dev_dependencies:
   flutter_test:

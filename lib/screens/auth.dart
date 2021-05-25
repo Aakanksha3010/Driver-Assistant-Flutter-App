@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/HomeScreen.dart';
+import 'package:flutter_application_1/screens/dashboard/landing.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -70,15 +71,17 @@ class _AuthScreenState extends State<AuthScreen> {
                 height: 50,
                 minWidth: double.maxFinite,
                 onPressed: () async {
-                  dynamic results = await auth.signInWithEmailAndPassword(
-                      email: nameController.text,
-                      password: psswdController.text);
-                  if (results != null) {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => HomeScreen(
-                                username: auth.currentUser.displayName)),
-                        (Route<dynamic> route) => false);
+                  try {
+                    dynamic results = await auth.signInWithEmailAndPassword(
+                        email: nameController.text,
+                        password: psswdController.text);
+                    if (results != null) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) => MyHomePage()),
+                          (Route<dynamic> route) => false);
+                    }
+                  } catch (err) {
+                    print(err["message"]);
                   }
                 },
                 child: Text("Login",
