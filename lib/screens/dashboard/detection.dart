@@ -16,16 +16,20 @@ class _DetectionState extends State<Detection> {
   void initState() {
     super.initState();
     _loading = true;
-    loadModel().then((value) {
-      setState(() {
-        _loading = false;
-      });
+    try {
+      loadModel().then((value) {
+        setState(() {
+          _loading = false;
+        });
 
-      Navigator.push(context,
-          MaterialPageRoute(builder: (BuildContext context) {
-        return FaceDetectionFromLiveCamera();
-      }));
-    });
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) {
+          return FaceDetectionFromLiveCamera();
+        }));
+      });
+    } catch (err) {
+      print("Error occured $err");
+    }
   }
 
   @override
@@ -35,8 +39,8 @@ class _DetectionState extends State<Detection> {
 
   loadModel() async {
     await Tflite.loadModel(
-      model: "assets/model_unquant.tflite",
-      labels: "assets/labels.txt",
+      model: "assets/model_unquant_drow.tflite",
+      labels: "assets/label.txt",
     );
   }
 
@@ -50,14 +54,15 @@ class _DetectionState extends State<Detection> {
               )
             : Container(
                 width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _image == null
                         ? Container()
                         : Image.file(_image,
-                            fit: BoxFit.contain,
+                            fit: BoxFit.cover,
                             height: MediaQuery.of(context).size.height * 0.6),
                     SizedBox(
                       height: 10,
@@ -71,8 +76,8 @@ class _DetectionState extends State<Detection> {
                                     : "Eyes Open",
                                 style: TextStyle(
                                   color: _outputs[0]["label"] == '0 Closed'
-                                      ? Colors.green
-                                      : Colors.red,
+                                      ? Colors.red
+                                      : Colors.green,
                                   fontSize: 25.0,
                                 ),
                               ),

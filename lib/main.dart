@@ -8,7 +8,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
-    theme: ThemeData(fontFamily: "LexendDeca"),
+    theme: ThemeData(
+      fontFamily: "LexendDeca",
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+    ),
     debugShowCheckedModeBanner: false,
     home: MyApp(),
   ));

@@ -3,7 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter_application_1/screens/dashboard/landing.dart';
 import 'package:tflite/tflite.dart';
 import 'dart:math' as math;
-import 'package:flutter_application_1/screens/dashboard/boundary_box.dart';
+import './boundary_box.dart';
 
 class FaceDetectionFromLiveCamera extends StatefulWidget {
   @override
@@ -149,7 +149,7 @@ class _FaceDetectionFromLiveCameraState
                 children: [
                   Center(
                     child: AspectRatio(
-                      aspectRatio: cameraController.value.aspectRatio,
+                      aspectRatio: 1 / cameraController.value.aspectRatio,
                       child: CameraPreview(cameraController),
                     ),
                   ),

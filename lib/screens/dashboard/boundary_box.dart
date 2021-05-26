@@ -24,8 +24,6 @@ class BoundaryBox extends StatelessWidget {
           }
         } catch (err) {
           // do nothing
-          print(
-              "errrorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr $err");
         }
         return Stack(
           children: <Widget>[
@@ -38,7 +36,7 @@ class BoundaryBox extends StatelessWidget {
                 "${re["label"] == '0 Closed' ? "Eyes Closed" : "Eyes Open"} ${(re["confidence"] * 100).toStringAsFixed(0)}%",
                 style: TextStyle(
                   backgroundColor: Colors.white,
-                  color: re["label"] == '0 Closed' ? Colors.green : Colors.red,
+                  color: re["label"] == '0 Closed' ? Colors.red : Colors.green,
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
