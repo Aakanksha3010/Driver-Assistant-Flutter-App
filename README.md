@@ -1,16 +1,11 @@
-# flutter_application_1
+## Driver Assistant Flutter App
 
-A new Flutter project.
+Drowsiness detection is one of those normal issue should have been settled to forestall street mishaps. 
+In ongoing time's auto weariness associated crashes have extremely extended. Driver's heedlessness may be the 
+consequence of an absence of sharpness when driving because of driver sleepiness and interruption.
+Hence, we come up with a solution which is a  flutter app that can automatically detect driver drowsiness in a
+real-time video stream and then play an alarm if the driver appears to be drowsy.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Contribution
+ This project was made by bunch of students of NMIMS MPSTME, so go ahead and enjoy our app and drive responsibly!
