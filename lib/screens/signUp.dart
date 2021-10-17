@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/HomeScreen.dart';
+import 'package:flutter_application_1/screens/auth.dart';
 import 'package:flutter_application_1/screens/dashboard/landing.dart';
-import 'package:flutter_application_1/screens/signUp.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -16,12 +16,12 @@ final FirebaseAuth auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 final AuthService authService = AuthService();
 
-class AuthScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   @override
-  _AuthScreenState createState() => _AuthScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _AuthScreenState extends State<AuthScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final Color pColor = Color(0xff18203d);
 
   final Color sColor = Color(0xff232c51);
@@ -53,7 +53,7 @@ class _AuthScreenState extends State<AuthScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Sign-in to experience magic',
+                'Sign-up to experience magic',
                 style: GoogleFonts.openSans(color: Colors.white, fontSize: 28),
                 textAlign: TextAlign.center,
               ),
@@ -68,13 +68,13 @@ class _AuthScreenState extends State<AuthScreen> {
               _buildTextField(psswdController, Icons.lock, 'Password'),
               SizedBox(height: 30),
               InkWell(
-                child: Text("Don't have an account? Register!",
+                child: Text("Already have an account? Login!",
                     style:
                         GoogleFonts.openSans(color: Colors.blue, fontSize: 14),
                     textAlign: TextAlign.center),
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignUpScreen()));
+                      MaterialPageRoute(builder: (context) => AuthScreen()));
                 },
               ),
               SizedBox(height: 30),
@@ -84,26 +84,22 @@ class _AuthScreenState extends State<AuthScreen> {
                 minWidth: double.maxFinite,
                 onPressed: () async {
                   try {
-                    dynamic results = await auth.signInWithEmailAndPassword(
+                    dynamic results = await auth.createUserWithEmailAndPassword(
                         email: nameController.text,
                         password: psswdController.text);
                     if (results != null) {
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(builder: (context) => MyHomePage()),
                           (Route<dynamic> route) => false);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text("Invalid credentials"),
-                      ));
                     }
                   } catch (err) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("Invalid credentials"),
+                      content: Text("Something went wrong. Please try again!"),
                     ));
                     print(err["message"]);
                   }
                 },
-                child: Text("Login",
+                child: Text("Signup",
                     style: TextStyle(fontSize: 16, color: Colors.white)),
                 color: Colors.blue,
               ),
